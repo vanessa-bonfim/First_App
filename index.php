@@ -52,3 +52,25 @@ switch ($page) { // Muda ou troca a variavel page caso:
     default:        
         break;
 }
+
+
+$page_template = 'templates/page_' . $page . '.php'; //Inserido na variável abaixo uma concatenação de string e variável para sr usada como query string.
+
+require_once('templates/head.php'); //importa o ficheiro head.php
+
+/*
+* Essa condição verifica se a variável é um ficheiro e se ele existe.
+* Nesse caso, ele importará uma parte do meio do HTML,
+* tudo que contém page: $page_template = 'templates/page_' . $page . '.php'
+*/
+
+if (file_exists($page_template)) { // A função file_exists irá verificar se é um ficheiro e se existe.
+
+    require_once $page_template; 
+    
+} else { // Senão irá retornar a pagina de não encontrado.
+
+    require_once 'templates/page_not_found.php';
+}
+
+require_once 'templates/foot.php'; // importa o ficheiro foot.php.
