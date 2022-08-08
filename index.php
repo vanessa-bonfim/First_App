@@ -27,3 +27,28 @@ if(empty($_GET['route'])){ // Se a super global estiver vazia.
 } else { //se não estiver vazia.
     $page = $_GET["route"];
 }
+
+
+/*
+* A condição SWITCH é parecida com a IF.
+* Essa condição vai servir de controlador, medidas serão tomadas caso detectem 
+* se tentar aceder uma página na qual não tenha acesso, seja por não está autenticado ou não ter preenchido 
+*
+*/
+switch ($page) { // Muda ou troca a variavel page caso:
+
+    case 'dashboard': //$page = 'dashboard'
+        require_once('controllers/dashboard.php');
+        break;
+    
+    case 'authenticate': //$page = 'authenticate'
+        require_once('controllers/authenticate.php');
+        break;
+
+    case 'logout': //$page = 'logout'
+        require_once('controllers/logout.php');
+        break;
+
+    default:        
+        break;
+}
