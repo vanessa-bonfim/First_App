@@ -32,7 +32,7 @@ $password = $_POST['password'];
 
 if ($login == USER_LOGIN && $password == USER_PASSWORD) { // condição é se as variáveis são iguais as constantes(config.php)
 
-    $_SESSION['is_authenticate'] = true; // ??
+    $_SESSION['is_authenticated'] = true; // ??
 
     set_flash_message('Utilizador autenticado com sucesso!'); //Mostra essa mensagem por 1 sec. (função criada em message.php)
 
