@@ -15,7 +15,7 @@ require_once('config.php'); //importa as informações do ficheiro config.php
 
 require_once('functions/url.php'); //importa as funções do ficheiro url.php
 require_once('functions/message.php'); //importa as funções do ficheiro message.php
-
+require_once('functions/auth.php'); //importa as funções do ficheiro auth.php
 
 /*
 * Lembrando que a super global GET pega as informações da URL. 
