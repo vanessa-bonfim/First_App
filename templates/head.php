@@ -17,8 +17,10 @@
                 <!-- Os HREFs já estão com as rotas configuradas ?route=..., e no ficheiro index.php há uma condição que retorna o login, caso route esteja vazio. -->
                 <ul>
                     <li><a href="?route=home">Home</a></li> 
+                    <li><a href="?route=product">Produtos</a></li>
                     <li><a href="?route=about">Sobre Nós</a></li> 
                     <li><a href="?route=contact">Contacto</a></li> 
+                    
                 </ul>
                 <ul>
                     <?php if (is_authenticated()) :?> <!-- Esta condição irá mostra a "li" se a função for true. Ficheiro auth.php-->

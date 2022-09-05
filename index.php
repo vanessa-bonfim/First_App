@@ -56,7 +56,7 @@ switch ($page) { // Muda ou troca a variavel page caso:
 
 $page_template = 'templates/page_' . $page . '.php'; //Inserido na variável abaixo uma concatenação de string e variável para sr usada como query string.
 
-require_once('templates/head.php'); //importa o ficheiro head.php
+require_once 'templates/head.php'; //importa o ficheiro head.php
 
 /*
 * Essa condição verifica se a variável é um ficheiro e se ele existe.
@@ -64,9 +64,10 @@ require_once('templates/head.php'); //importa o ficheiro head.php
 * tudo que contém page: $page_template = 'templates/page_' . $page . '.php'
 */
 
+
 if (file_exists($page_template)) { // A função file_exists irá verificar se é um ficheiro e se existe.
 
-    require_once $page_template; 
+    require_once $page_template;
     
 } else { // Senão irá retornar a pagina de não encontrado.
 
