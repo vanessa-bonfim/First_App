@@ -22,6 +22,22 @@ if (empty($_POST['username']) || empty($_POST['password'])) { // função empty 
 $login = $_POST['username']; 
 $password = $_POST['password'];
 
+/***
+ *  prepare() utiliza prepared statements uma vez feita a consulta,
+ *  ela é otimizada pelo banco e pode ser executada várias vezes. 
+ *  O que muda são os argumentos, seu uso evita problema com sql injection desde que usado corretamente.
+*/
+$query = 'SELECT name FROM users WHERE login = ? AND password = ?'; //A variável query recebe nosso código de consulta SQL. Para ter mais uma camada de segurança ao consultar, usandos "?"(bind) que ajuda a não acontecer um SQL injection que é uma vulnerabilidade de segurança na web que permite ataques.
+$sql = $pdo->prepare($query); //A variável slq recebe a preparação da da variável query/comando SQL. Prepara uma instrução para execução e retorna um objeto de instrução.
+
+
+    
+if ($sql->execute([$login, $password])) {
+        $user = $sql->fetch(PDO::FETCH_ASSOC);
+    } else {
+        $user = [];
+}
+
 /* 
 *
 * Essa condição verifica se os valores guardados nas variáveis
@@ -30,11 +46,14 @@ $password = $_POST['password'];
 * pois ao criarmos as funções deixamos o parametro a receber vazio por padrão.
 */
 
-if ($login == USER_LOGIN && $password == USER_PASSWORD) { // condição é se as variáveis são iguais as constantes(config.php)
+if (!empty($user)) { // condição é se as variáveis são iguais as constantes(config.php)
 
-    $_SESSION['is_authenticated'] = true; // ??
+    
 
-    set_flash_message('Utilizador autenticado com sucesso!'); //Mostra essa mensagem por 1 sec. (função criada em message.php)
+    $_SESSION['is_authenticated'] = true; // Guarda nesta o boleano true como padrão.
+    $_SESSION['user'] = $user; // Guarda a informação da variável.
+
+    set_flash_message('Utilizador autenticado com sucesso!'); // Mostra essa mensagem por 1 sec. (função criada em message.php)
 
     url_redirect(['route' => 'dashboard']); // Redireciona para página dashboard. (função criada em url.php)
 
@@ -42,7 +61,7 @@ if ($login == USER_LOGIN && $password == USER_PASSWORD) { // condição é se as
     
     set_flash_message('Utilizador ou senha incorreta, tente novamente!');// Mostra essa mensagem por 1 sec. (função criada em message.php)
 
-    url_redirect(['route' => 'login']); //Redireciona para página login. (função criada em url.php)
+    url_redirect(['route' => 'login']); // Redireciona para página login. (função criada em url.php)
 }
 
 

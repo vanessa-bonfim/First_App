@@ -17,6 +17,17 @@ require_once('functions/url.php'); //importa as funções do ficheiro url.php
 require_once('functions/message.php'); //importa as funções do ficheiro message.php
 require_once('functions/auth.php'); //importa as funções do ficheiro auth.php
 
+
+/*
+ *  Esse código abaixo irá fazer a nossa logação ao banco de dados.
+ *  Nota: quando uma instância é criada, estamos na verdade a criar um "objeto" daquele "molde".
+ *  DSN - "Data Source Name" 
+ *  POD - "PHP Data Object"
+ */
+$dsn = 'mysql:dbname='.DB_NAME.';host='.DB_HOST.';port='.DB_PORT; // A variável dsn recebe o caminho da base de dados, concatenando as constantes.
+$pdo = new PDO($dsn, DB_USER, DB_PASS); // A variável pdo recebe a declaração de uma instância da classe PDO(classe interna do PHP assim como empty) com o palavra reservada "new" com 3 argumentos.
+
+
 /*
 * Lembrando que a super global GET pega as informações da URL. 
 * query string : ?nome=Maria (1 chave, 1 valor) ou ?nome=Maria&idade=46 (quando se há mais de 1 valor)
