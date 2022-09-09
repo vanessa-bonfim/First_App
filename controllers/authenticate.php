@@ -27,16 +27,16 @@ $password = $_POST['password'];
  *  ela é otimizada pelo banco e pode ser executada várias vezes. 
  *  O que muda são os argumentos, seu uso evita problema com sql injection desde que usado corretamente.
 */
-$query = 'SELECT name FROM users WHERE login = ? AND password = ?'; //A variável query recebe nosso código de consulta SQL. Para ter mais uma camada de segurança ao consultar, usandos "?"(bind) que ajuda a não acontecer um SQL injection que é uma vulnerabilidade de segurança na web que permite ataques.
-$sql = $pdo->prepare($query); //A variável slq recebe a preparação da da variável query/comando SQL. Prepara uma instrução para execução e retorna um objeto de instrução.
+//$query = 'SELECT name FROM users'; //A variável query recebe nosso código de consulta SQL. Para ter mais uma camada de segurança ao consultar, usandos "?"(bind) que ajuda a não acontecer um SQL injection que é uma vulnerabilidade de segurança na web que permite ataques.
+$user = db_query($pdo,  'SELECT name FROM users WHERE login = ? and password = ?', [$login, $password]);
 
-
-    
-if ($sql->execute([$login, $password])) {
-        $user = $sql->fetch(PDO::FETCH_ASSOC);
+/* $sql = $pdo->prepare($query); //A variável slq recebe a preparação da da variável query/comando SQL. Prepara uma instrução para execução e retorna um objeto de instrução.
+  
+if ($sql->execute([$login, $password])) { //Vai no sql, pega o que foi preparado 
+        $user = $sql->fetch(PDO::FETCH_ASSOC); // Obter as informações como array associativo ['name'->'Maria Freitas']
     } else {
         $user = [];
-}
+} */
 
 /* 
 *
@@ -46,7 +46,7 @@ if ($sql->execute([$login, $password])) {
 * pois ao criarmos as funções deixamos o parametro a receber vazio por padrão.
 */
 
-if (!empty($user)) { // condição é se as variáveis são iguais as constantes(config.php)
+if (!empty($user[0])) { // condição é se as variáveis são iguais as constantes(config.php)
 
     
 
